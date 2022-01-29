@@ -12,32 +12,38 @@ function App() {
   const emailInput = useRef(null);
   const passwordInput = useRef(null);
 
+
   const handleOnChange = (event) => {
     setSearch(event.target.value);
     setDebounceSearch(event.target.value);
   };
 
 
- const handleSubmit = (e) => {
- 
- };
+  const handleSubmit = (e) => {
+    console.log("name", nameInput.current.value);
+    console.log("email", emailInput.current.value);
+    console.log("password", passwordInput.current.value);
+  };
 
- const handleFocus = (name) => {
+  const handleFocus = (name) => {
 
-  if(name === "nameInput"){
-    nameInput.current.focus()
-  }
-  if(name === "emailInput"){
-    emailInput.current.focus()
-  }
-  if(name === "passwordInput"){
-    passwordInput.current.focus()
-  }
-  
-  console.log("ref",);
- };
+    if (name === "nameInput") {
+      nameInput.current.focus()
+    }
+    if (name === "emailInput") {
+      emailInput.current.focus()
+    }
+    if (name === "passwordInput") {
+      passwordInput.current.focus()
+    }
 
- const handleReset = () => {};
+  };
+
+  const handleReset = () => {
+    nameInput.current.value = "";
+    emailInput.current.value = "";
+    passwordInput.current.value = "";
+  };
 
   const searchApi = () => {
     if (debounceSearch !== null) {
@@ -68,7 +74,7 @@ function App() {
         <p>part 1</p>
         <label>
           Name:
-          <input placeholder="name"  ref={nameInput}  type="text" />
+          <input placeholder="name" ref={nameInput} type="text" />
         </label>
         <label>
           Email:
@@ -83,14 +89,18 @@ function App() {
         <hr />
         <button onClick={() => handleFocus("nameInput")}>Focus Name Input</button>
         <button onClick={() => handleFocus("emailInput")}>Focus Email Input</button>
-        <button  onClick={() => handleFocus("passwordInput")}>Focus Password Input</button>
+        <button onClick={() => handleFocus("passwordInput")}>Focus Password Input</button>
         <hr />
         <button onClick={() => handleSubmit()}>Submit</button>
-        <button>Reset</button>
+        <button onClick={() => handleReset()}>Reset</button>
       </div>
-      <div>
+     
+      <div className="container">
+     
         <hr />
+        <div>
         <p>part 2</p>
+        <div className="row">
         <label>
           Search:
           <input
@@ -102,18 +112,20 @@ function App() {
 
           />
         </label>
+        </div>
       </div>
       <div className="row">
         {searchResult?.map((eachItem, key) => (
           <div key={key} className="col-md-3 card">
-             <div>Id: {eachItem?.id}</div>
+            <div>Id: {eachItem?.id}</div>
             <div>Title: {eachItem?.title}</div>
             <div>rating: {eachItem?.rating}</div>
             <div>Username: {eachItem?.username}</div>
           </div>
         ))}
+        </div>
 
-        
+
       </div>
     </React.Fragment>
 
